@@ -1,3 +1,0 @@
-[submodule "incubator/incubator/learn-terraform-sensitive-variables"]
-	path = incubator/incubator/learn-terraform-sensitive-variables
-	url = https://github.com/hashicorp/learn-terraform-sensitive-variables.git
