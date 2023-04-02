@@ -14,6 +14,7 @@ repos:
           - --unsafe
       - id: end-of-file-fixer
       - id: trailing-whitespace
+        exclude: .terraform/*
   - repo: https://github.com/asottile/pyupgrade
     rev: v3.3.1
     hooks:
