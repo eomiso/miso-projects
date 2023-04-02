@@ -1,5 +1,8 @@
-import os
+from fastapi import FastAPI
 
-import fastapi
+app = FastAPI()
 
-app = fastapi.FastAPI()
+
+@app.get("/")
+async def root():
+    return {"message": "Hello World"}

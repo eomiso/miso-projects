@@ -5,11 +5,11 @@ description = "A sample hello world fastapi server"
 authors = ["Uiseop Eom <ytrtef@gmail.com>"]
 license = "MIT"
 readme = "README.md"
-packages = [{include = "app"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
 fastapi = "^0.95.0"
+uvicorn = "^0.21.1"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.3.0"
@@ -35,6 +35,9 @@ ignore = [
     "B008",  # do not perform function calls in argument defaults
     "C901",  # too complex
 ]
+
+[tool.poetry.build]
+generate-setup-file = false
 
 [build-system]
 requires = ["poetry-core"]
