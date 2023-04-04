@@ -40,10 +40,10 @@ module "ecs" {
   private_subnet_ids = module.network.private_subnet_ids
   public_subnet_ids  = module.network.public_subnet_ids
   repository_url     = module.ecr.repository_url
-  secrets = {
-    "OREURAK_FIREBASE_SERVICE_ACCOUNT_KEY" = "/prod/firestore/service-account-key"
-    "FILM_FIREBASE_SERVICE_ACCOUNT_KEY"    = "/prod/film/firebase/service-account-key"
-    "JWT_SECRET_KEY"                       = "/prod/film/jwt-secret-key"
-    "OPENAI_API_KEY"                       = "/dev/openai/api-key"
-  }
+  # secrets = {
+  #   "OREURAK_FIREBASE_SERVICE_ACCOUNT_KEY" = "/prod/firestore/service-account-key"
+  #   "FILM_FIREBASE_SERVICE_ACCOUNT_KEY"    = "/prod/film/firebase/service-account-key"
+  #   "JWT_SECRET_KEY"                       = "/prod/film/jwt-secret-key"
+  #   "OPENAI_API_KEY"                       = "/dev/openai/api-key"
+  # }
 }
