@@ -167,3 +167,6 @@ terraform.rc
 .terraform.lock.hcl
 
 .ruff_cache
+
+tf.plan
+tfplan.txt
