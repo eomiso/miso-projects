@@ -6,13 +6,17 @@ locals {
 module "lb" {
   source = "../lb"
 
-  name    = var.name
+  name    = "${var.name}-lb"
   vpc_id  = var.vpc_id
   subnets = var.public_subnet_ids
+
+  tags = {
+    Name = "${var.name}-lb"
+  }
 }
 
 resource "aws_security_group" "ecs" {
-  name   = "${var.name}-ecs"
+  name   = "${var.name}-ecs-sg"
   vpc_id = var.vpc_id
 
   ingress {
@@ -28,10 +32,14 @@ resource "aws_security_group" "ecs" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+  tags = {
+    Name = "${var.name}-ecs-sg"
+  }
 }
 
 resource "aws_ecs_cluster" "ecs" {
-  name = var.name
+  name = "${var.name}-cluster"
 }
 
 resource "aws_ecs_service" "ecs" {
@@ -48,7 +56,7 @@ resource "aws_ecs_service" "ecs" {
   }
 
   load_balancer {
-    target_group_arn = module.lb.target_gropu_arn
+    target_group_arn = module.lb.target_group_arn
     container_name   = var.name
     container_port   = local.container_port
   }

@@ -1,5 +1,5 @@
 resource "aws_security_group" "lb" {
-  name   = "${var.name}-lb"
+  name   = "${var.name}-lb-sg"
   vpc_id = var.vpc_id
 
   ingress {
@@ -24,6 +24,8 @@ resource "aws_security_group" "lb" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+  tags = var.tags
 }
 
 resource "aws_lb" "lb" {
@@ -34,19 +36,30 @@ resource "aws_lb" "lb" {
 }
 
 resource "aws_lb_target_group" "lb" {
-  name        = var.name
+  name        = "${var.name}-tg"
   port        = 80
   protocol    = "HTTP"
   vpc_id      = var.vpc_id
   target_type = "ip"
 }
 
+# resource "aws_lb_listener" "lb" {
+#   load_balancer_arn = aws_lb.lb.arn
+#   port              = "443"
+#   protocol          = "HTTPS"
+#   ssl_policy        = "ELBSecurityPolicy-2016-08"
+#   certificate_arn   = "arn:aws:acm:ap-northeast-2:075389491675:certificate/f6ce5174-975b-4263-bd38-ac2217af3790"
+
+#   default_action {
+#     type             = "forward"
+#     target_group_arn = aws_lb_target_group.lb.arn
+#   }
+# }
+
 resource "aws_lb_listener" "lb" {
   load_balancer_arn = aws_lb.lb.arn
-  port              = "443"
-  protocol          = "HTTPS"
-  ssl_policy        = "ELBSecurityPolicy-2016-08"
-  certificate_arn   = "arn:aws:acm:ap-northeast-2:075389491675:certificate/f6ce5174-975b-4263-bd38-ac2217af3790"
+  port              = "80"
+  protocol          = "HTTP"
 
   default_action {
     type             = "forward"

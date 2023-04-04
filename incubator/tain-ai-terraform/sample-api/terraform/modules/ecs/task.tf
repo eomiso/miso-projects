@@ -5,8 +5,8 @@ resource "aws_iam_role" "ecs_task_execution_role" {
     Version = "2012-10-17"
 
     Statement = [{
-      sid    = "1"
-      effect = "Allow"
+      Sid    = "1"
+      Effect = "Allow"
       Action = "sts:AssumeRole"
 
       Principal = {
@@ -84,4 +84,3 @@ resource "aws_ecs_task_definition" "ecs" {
     },
   ])
 }
-
