@@ -18,10 +18,11 @@ jobs:
   merge-dev-to-main:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout branch
-        run: |
-          git fetch
-          git checkout dev
+      - name: git checkout
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
       # https://github.com/marketplace/actions/github-pull-request-action
       - name: create pull request
         id: open-pr
