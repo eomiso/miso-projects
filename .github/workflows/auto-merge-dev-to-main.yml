@@ -43,8 +43,9 @@ jobs:
         run: |
           curl -L \
             -H "Accept: application/vnd.github+json" \
-            -H "Authorization: Bearer ${{ github.GITHUB_TOKEN }} \
+            -H "Authorization: Bearer ${{ github.PERSONAL_ACCESS_TOKEN }}" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://api.github.com/repos/eomiso/miso-projects/pulls/${{ steps.open-pr.outputs.pr_number }}
 
       # https://api.github.com/repos/OWNER/REPO/pulls/PULL_NUMBER/reviews
       - id: automerge
