@@ -11,6 +11,9 @@ on:
      tags:
        description: 'Test scenario tags'
 
+env:
+  GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
 jobs:
   merge-dev-to-main:
     runs-on: ubuntu-latest
