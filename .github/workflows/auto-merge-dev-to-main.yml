@@ -18,11 +18,6 @@ jobs:
   merge-dev-to-main:
     runs-on: ubuntu-latest
     steps:
-      - name: git checkout
-        uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-
       # https://github.com/marketplace/actions/github-pull-request-action
       - name: create pull request
         id: open-pr
@@ -42,3 +37,8 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           pull-request-number: ${{ steps.open-pr.outputs.pr_number }}
           merge-method: merge
+      - id: automerge
+        name: automerge
+        uses: "pascalgn/automerge-action@v0.15.6"
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
