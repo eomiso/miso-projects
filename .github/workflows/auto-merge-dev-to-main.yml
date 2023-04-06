@@ -34,8 +34,7 @@ jobs:
 
       - name: Approve PR
         run: |
-          echo "${{ github.PERSONAL_ACCESS_TOKEN }}"
-        run: |
+          echo "${{ github.PERSONAL_ACCESS_TOKEN }}" &&
           curl -L \
             -H "Accept: application/vnd.github+json" \
             -H "Authorization: Bearer ${{ github.PERSONAL_ACCESS_TOKEN }}" \
