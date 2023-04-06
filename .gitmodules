@@ -1,3 +1,6 @@
 [submodule "incubator/learn-terraform-sensitive-variables"]
-	path = incubator/learn-terraform-sensitive-variables
-	url = https://github.com/hashicorp/learn-terraform-sensitive-variables.git
+path = incubator/learn-terraform-sensitive-variables
+url = https://github.com/hashicorp/learn-terraform-sensitive-variables.git
+[submodule "reference/fastapi"]
+path = reference/fastapi
+url = https://github.com/tiangolo/fastapi.git
