@@ -20,7 +20,7 @@ jobs:
     steps:
       - name: checkout branch
         run: |
-          git branch
+          git fetch
           git checkout dev
       # https://github.com/marketplace/actions/github-pull-request-action
       - name: create pull request
