@@ -1,0 +1,43 @@
+name: cronjob-for-creating-release-branch
+on:
+  schedule:
+    - cron: '1 15 * * 0'
+  workflow_dispatch:
+    inputs:
+     LogLevel:
+       description: 'Log level'     
+       required: true
+       default: 'warning'
+     tags:
+       description: 'Test scenario tags'
+
+jobs:
+  merge-dev-to-main:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Checkout to dev branch
+        run: |
+          git fetch
+          git checkout dev
+      
+      # https://github.com/marketplace/actions/github-pull-request-action
+      - name: create pull request
+        id: open-pr
+        uses: repo-sync/pull-request@v2
+        with:
+          github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          destination_branch: ${{ github.event.repository.default_branch }}
+          pr_title: "[Automated] Merge ${{ github.ref_name }} into ${{ github.event.repository.default_branch }}"
+          pr_body: "Automated Pull Request"
+          pr_reviewer: "eomiso"
+          pr_assignee: "eomiso"
+          
+      - name: Auto merge PR to main
+        if: steps.open-pr.outputs.pr_number != ''
+        uses: peter-evans/enable-pull-request-automerge@v2
+        with:
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          pull-request-number: ${{ steps.open-pr.outputs.pr_number }}
+          merge-method: merge
+          
