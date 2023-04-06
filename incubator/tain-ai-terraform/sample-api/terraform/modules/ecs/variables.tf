@@ -38,3 +38,7 @@ variable "secrets" {
   description = "Secrets to be passed to the container"
   default     = {}
 }
+
+variable "tags" {
+  Name = "sample-api"
+}
