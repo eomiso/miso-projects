@@ -7,7 +7,7 @@ on:
       LogLevel:
         description: "Log level"
         required: true
-        default: "warning"
+        default: "debugging"
       tags:
         description: "Test scenario tags"
 
@@ -18,6 +18,13 @@ jobs:
   merge-dev-to-main:
     runs-on: ubuntu-latest
     steps:
+      - name: Check if main branch is the trigger branch
+          run: |
+            if [ "${{ github.ref }}" != "refs/heads/dev" ]; then
+              echo "This workflow can only be triggered on the main branch."
+              exit 1
+            fi
+
       # https://github.com/marketplace/actions/github-pull-request-action
       - uses: actions/checkout@v3
       - name: create pull request
