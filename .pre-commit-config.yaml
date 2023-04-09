@@ -40,15 +40,9 @@ repos:
     hooks:
       - id: isort
         name: isort (python)
+        additional_dependencies: [toml]
         files: \.py$
-      - id: isort
-        name: isort (cython)
-        types: [cython]
-        files: \.py$
-      - id: isort
-        name: isort (pyi)
-        types: [pyi]
-        files: \.py$
+        exclude: ^.*/?setup\.py$
   - repo: https://github.com/psf/black
     rev: 23.1.0
     hooks:
