@@ -19,11 +19,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check if main branch is the trigger branch
-          run: |
-            if [ "${{ github.ref }}" != "refs/heads/dev" ]; then
-              echo "This workflow can only be triggered on the main branch."
-              exit 1
-            fi
+        run: |
+          if [ "${{ github.ref }}" != "refs/heads/dev" ]; then
+            echo "This workflow can only be triggered on the main branch."
+            exit 1
+          fi
 
       # https://github.com/marketplace/actions/github-pull-request-action
       - uses: actions/checkout@v3
