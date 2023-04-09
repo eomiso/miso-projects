@@ -1,0 +1,64 @@
+name: cronjob-for-auto-merging-dev-to-main-on-schedule
+on:
+  schedule:
+    - cron: "1 15 * * 0"
+  workflow_dispatch:
+    inputs:
+      LogLevel:
+        description: "Log level"
+        required: true
+        default: "debugging"
+      tags:
+        description: "Test scenario tags"
+
+env:
+  GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+jobs:
+  merge-dev-to-main:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if main branch is the trigger branch
+        run: |
+          if [ "${{ github.ref }}" != "refs/heads/dev" ]; then
+            echo "This workflow can only be triggered on the main branch."
+            exit 1
+          fi
+
+      # https://github.com/marketplace/actions/github-pull-request-action
+      - uses: actions/checkout@v3
+      - name: create pull request
+        id: open-pr
+        uses: repo-sync/pull-request@v2
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          source_branch: "dev"
+          destination_branch: ${{ github.event.repository.default_branch }}
+          pr_title: "[Automated] Merge ${{ github.ref_name }} into ${{ github.event.repository.default_branch }}"
+          pr_body: "Automated Pull Request"
+          pr_reviewer: "eomiso"
+          pr_assignee: "eomiso"
+
+      - name: Approve PR
+        run: |
+          echo "${{ github.GITHUB_TOKEN }}" &&
+          curl -L \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${{ github.GITHUB_TOKEN }}" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://api.github.com/repos/eomiso/miso-projects/pulls/${{ steps.open-pr.outputs.pr_number }}
+
+      - name: Auto merge PR to main
+        if: steps.open-pr.outputs.pr_number != ''
+        uses: peter-evans/enable-pull-request-automerge@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          pull-request-number: ${{ steps.open-pr.outputs.pr_number }}
+          merge-method: merge
+
+      # https://api.github.com/repos/OWNER/REPO/pulls/PULL_NUMBER/reviews
+      - id: automerge
+        name: automerge
+        uses: "pascalgn/automerge-action@v0.15.6"
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"

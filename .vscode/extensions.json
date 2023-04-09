@@ -15,7 +15,7 @@
 		"thenikso.github-plus-theme",
 		"github.vscode-pull-request-github",
 		"hashicorp.terraform",
-		"ms-python.isort",
+		"ms-python.isort", // only works when you are in the workspace folder https://github.com/microsoft/vscode-isort/issues/53#issuecomment-1449468466
 		"charliermarsh.ruff",
 		"foxundermoon.shell-format",
 		"timonwong.shellcheck",
