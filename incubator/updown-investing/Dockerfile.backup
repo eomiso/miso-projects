@@ -1,0 +1,45 @@
+# Install the base requirements for the app
+# This stage is to support development
+FROM --platform=$BUILDPLATFORM python:3.10-alpine AS python-base
+ENV PYTHONDONTWRITEBYTECODE=1
+RUN apk add --no-cache --virtual .build-deps gcc libc-dev libffi-dev openssl-dev make \
+    && python -m pip install -U pip poetry \
+    && apk del .build-deps gcc libc-dev libffi-dev openssl-dev make
+
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PIP_NO_CACHE_DIR=off \
+    PIP_DISABLE_PIP_VERSION_CHECK=on \
+    PIP_DEFAULT_TIMEOUT=100 \
+    POETRY_HOME="/opt/poetry" \
+    POETRY_VIRTUALENVS_IN_PROJECT=true \
+    POETRY_NO_INTERACTION=1 \
+    PYSETUP_PATH="/opt/pysetup" \
+    VENV_PATH="/opt/pysetup/.venv"
+
+ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
+
+# builder-base is used to build dependencies
+FROM python-base AS builder-base
+RUN apk --update --no-cache add \
+    curl \
+    build-base \
+    libffi-dev \
+    openssl-dev \
+    python3-dev \
+    && rm -rf /var/cache/apk/*
+
+FROM base AS build
+WORKDIR /app
+COPY poetry.lock ./
+COPY pyproject.toml ./
+RUN ["poetry", "install", "--no-dev", "--no-interaction", "--no-ansi", "--in"]
+
+
+FROM base AS dev
+WORKDIR /app
+COPY --chown=aesop:aeop --from=build /root/.cache /root/.cache
+
+ARG UID=40403
+ARG GID=40403
+RUN groupadd -g $GID -o aesop && useradd -m -u $UID -g $GID -o -r aesop
