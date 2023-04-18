@@ -44,14 +44,6 @@ jobs:
           pr_reviewer: "eomiso"
           pr_assignee: "eomiso"
 
-      - name: Enable Pull Request Automerge
-        if: steps.cpr.outputs.pull-request-operation == 'created'
-        uses: peter-evans/enable-pull-request-automerge@v3
-        with:
-          token: ${{ secrets.PAT }}
-          pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
-          merge-method: squash
-
       - name: Approve PR
         run: |
           echo "${{ github.GITHUB_TOKEN }}" &&
@@ -68,10 +60,3 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           pull-request-number: ${{ steps.open-pr.outputs.pr_number }}
           merge-method: merge
-
-      # https://api.github.com/repos/OWNER/REPO/pulls/PULL_NUMBER/reviews
-      - id: automerge
-        name: automerge
-        uses: "pascalgn/automerge-action@v0.15.6"
-        env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
