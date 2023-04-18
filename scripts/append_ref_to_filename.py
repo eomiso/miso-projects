@@ -18,9 +18,6 @@ for root, dirs, files in os.walk(target_dir):
     for filename in files:
         if ext_pattern.search(filename) and not filename.endswith(suffix):
             old_path = os.path.join(root, filename)
-            ext = ext_pattern.search(old_path).group()
-            new_path = (
-                os.path.join(root, ext_pattern.sub(f"({suffix})\0", filename)) + ext
-            )
+            new_path = os.path.join(root, ext_pattern.sub(rf"{suffix}\g<0>", filename))
             print(f"Renaming {old_path} to {new_path}...")
             os.rename(old_path, new_path)
