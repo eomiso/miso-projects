@@ -2,10 +2,10 @@ import cards
 
 expected_output = """\
 
-  ID   state   owner   summary
- ────────────────────────────────
-  1    todo            some task
-  2    todo            another
+  ID   state   owner   summary    
+ ──────────────────────────────── 
+  1    todo            some task  
+  2    todo            another    
 """
 
 
