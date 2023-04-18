@@ -25,11 +25,6 @@ jobs:
             exit 1
           fi
 
-      - uses: peter-evans/enable-pull-request-automerge@v3
-        with:
-          pull-request-number: ${{ github.event.pull_request.number }}
-          merge-method: squash
-
       # https://github.com/marketplace/actions/github-pull-request-action
       - uses: actions/checkout@v3
       - name: create pull request
