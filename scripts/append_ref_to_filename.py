@@ -20,7 +20,7 @@ for root, dirs, files in os.walk(target_dir):
             old_path = os.path.join(root, filename)
             ext = ext_pattern.search(old_path).group()
             new_path = (
-                os.path.join(root, ext_pattern.sub(rf"{suffix}\g<0>", filename)) + ext
+                os.path.join(root, ext_pattern.sub(f"({suffix})\0", filename)) + ext
             )
             print(f"Renaming {old_path} to {new_path}...")
             os.rename(old_path, new_path)

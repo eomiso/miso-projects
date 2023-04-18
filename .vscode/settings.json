@@ -7,13 +7,8 @@
         "**/.DS_Store": true,
         "**/Thumbs.db": true
     },
+    "editor.formatOnSave": true,
     "python.formatting.provider": "black",
-    "isort.importStrategy": "fromEnvironment",
-    "black-formatter.importStrategy": "fromEnvironment",
     "[python]": {
-        "editor.formatOnSave": true,
-        "editor.codeActionsOnSave": {
-            "source.organizeImports": true
-        }
     }
 }
