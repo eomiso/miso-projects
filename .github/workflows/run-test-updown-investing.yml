@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [ "*" ]
+
+env:
+  TEST_TAG: user/app:test
+  LATEST_TAG: user/app:latest
+
+jobs:
+  updown-investing-ci-quality-check:
+    env:
+      working-directory: ./incubator/updown-investing
+    defaults:
+      run:
+        working-directory: ${{ env.working-directory }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10"]
+        poetry-version: ["1.4.2"]
+        os: [ubuntu-latest]
+
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+      - name: Set up python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Run image
+        uses: abatilo/actions-poetry@v2
+      - name: Cache Poetry virtualenv
+        uses: actions/cache@v3
+        id: cache
+        with:
+          path: ./.venv
+          key: poetry-${{ hashFiles('**/poetry.lock') }}
+          restore-keys: |
+            poetry-${{ hashFiles('**/poetry.lock') }}
+      - name: Install Dependencies
+        run: poetry install
+        if: steps.cache.outputs.cache-hit != 'true'
+      - name: Code Quality
+        run: |
+          poetry run black --config ./pyproject.toml --check app tests
+          poetry run isort --settings-path ./pyproject.toml --check-only app tests
+      - name: Test with pytest
+        run: |
+          export PATH=./.venv/bin:$PATH
+          sh scripts/test.sh
