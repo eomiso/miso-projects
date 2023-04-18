@@ -8,7 +8,6 @@ repos:
     hooks:
       - id: detect-aws-credentials
       - id: check-added-large-files
-        exclude: "(reference/docker-getting-started)/.*"
       - id: check-toml
       - id: check-yaml
         args:
@@ -40,9 +39,15 @@ repos:
     hooks:
       - id: isort
         name: isort (python)
-        additional_dependencies: [toml]
         files: \.py$
-        exclude: ^.*/?setup\.py$
+      - id: isort
+        name: isort (cython)
+        types: [cython]
+        files: \.py$
+      - id: isort
+        name: isort (pyi)
+        types: [pyi]
+        files: \.py$
   - repo: https://github.com/psf/black
     rev: 23.1.0
     hooks:
