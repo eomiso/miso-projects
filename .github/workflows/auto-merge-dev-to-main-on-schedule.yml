@@ -21,7 +21,7 @@ jobs:
       - name: Check if main branch is the trigger branch
         run: |
           if [ "${{ github.ref }}" != "refs/heads/dev" ]; then
-            echo "This workflow can only be triggered on the main branch."
+            echo "This workflow can only be triggered on the dev branch."
             exit 1
           fi
 
