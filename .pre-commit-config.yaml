@@ -49,6 +49,19 @@ repos:
       - id: black
         files: \.py$
         exclude: "(reference|tests)/.*"
+  - repo: https://github.com/pre-commit/mirrors-eslint
+    rev: v8.41.0
+    hooks:
+      - id: eslint
+        files: "(.*/review-app/frontend/)"
+        types: [file, javascript, jsx, ts, tsx]
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v2.7.1
+    hooks:
+      - id: prettier
+        files: "(.*/review-app/frontend/)"
+        types: [css, json, javascript, ts, jsx, tsx]
+
 ci:
   autofix_commit_msg: 🎨 [pre-commit.ci] Auto format from pre-commit.com hooks
   autoupdate_commit_msg: ⬆ [pre-commit.ci] pre-commit autoupdate
