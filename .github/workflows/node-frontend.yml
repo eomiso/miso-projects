@@ -15,10 +15,12 @@ env:
 
 jobs:
   build_and_push:
+    env:
+      working-directory: ./incubator/node-frontend
     defaults:
       run:
-        working-directory: ./incubator/node-frontend
+        working-directory: ${{ env.working-directory }}
     runs-on: ubuntu-latest
     steps:
       - run: |
-          sh scripts/build_push.sh
+          sh scripts/build-push.sh
