@@ -4,6 +4,8 @@ run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 
 on:
   push:
+    paths:
+      - "incubator/node-frontend/**"
     branches:
       - main
 
