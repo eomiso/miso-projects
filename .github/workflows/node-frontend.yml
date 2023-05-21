@@ -15,6 +15,9 @@ env:
 
 jobs:
   build_and_push:
+    defaults:
+      run:
+        working-directory: ./incubator/node-frontend
     runs-on: ubuntu-latest
     steps:
       - run: |
