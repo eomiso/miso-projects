@@ -15,6 +15,7 @@ repos:
           - --unsafe
         exclude: "(.github)/.*"
       - id: end-of-file-fixer
+        exclude: ".*.svg"
       - id: trailing-whitespace
         exclude: "(\\.terraform(/.*)?$|tests/.*)"
   - repo: https://github.com/markdownlint/markdownlint
