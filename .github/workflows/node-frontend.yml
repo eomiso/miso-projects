@@ -6,6 +6,7 @@ on:
   push:
     paths:
       - "incubator/node-frontend/**"
+      - ".github/workflows/node-frontend.yml"
     branches:
       - main
 
