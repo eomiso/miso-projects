@@ -129,7 +129,6 @@ cover/
 poetry.toml
 
 .DS_Store/
-
 EOF
 
 }
