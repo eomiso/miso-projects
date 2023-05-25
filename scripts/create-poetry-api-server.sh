@@ -98,11 +98,48 @@ build-backend = "poetry.core.masonry.api"
 EOF
 }
 
+cat<<EOF>poetry.toml
+[virtualenvs]
+in-project = true
+EOF
+}
+
+# Create .gitignore file
+create_gitignore() {
+cat<<EOF>.gitignore
+# Byte-compiled / optimized / DLL files
+__pycache__/
+.venv/
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+poetry.toml
+
+.DS_Store/
+
+EOF
+
+}
+# Create README.md file
+
 # Check if no arguments were passed
 if [[ $# -eq 0 ]]; then
   help_message
   exit 0
 fi
+
 # Parse command-line arguments
 if [[ $# -gt 0 ]]; then
   case "$1" in
