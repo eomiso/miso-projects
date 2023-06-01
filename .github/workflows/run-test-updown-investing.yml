@@ -2,10 +2,8 @@ name: Updown Investing Server testing via docker build
 
 on:
   pull_request:
-    - main
-  push:
     branches:
-      - [ "*" ]
+      - 'main'
 
 env:
   TEST_TAG: user/app:test
@@ -24,9 +22,9 @@ jobs:
         id: changed-files-specific
         uses: tj-actions/changed-files@v34
         with:
-          files: |
-            'incubator/updown-investing/**'
-            '.github/worksflow/run-test-updown-investing.yml'
+          files:
+            - 'incubator/updown-investing/**'
+            - '.github/worksflow/run-test-updown-investing.yml'
 
       - name: Stop if there is no changed files
         if: steps.changed-files-specific.outputs.any_changed == 'false'
