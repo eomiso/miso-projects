@@ -1,6 +1,6 @@
 name: Docker Hub Push
 
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+run-name: ${{ github.actor }} is Pushing Node Frontend Docker Image 🚀
 
 on:
   push:
