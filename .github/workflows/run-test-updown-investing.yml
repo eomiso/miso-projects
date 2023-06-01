@@ -1,8 +1,11 @@
-name: CI
+name: Updown Investing Server testing via docker build
 
 on:
   pull_request:
-    branches: [ "*" ]
+    paths:
+      - "incubator/updown-investing/**"
+      - ".github/workflows/run-test-updown-investing.yml"
+
 
 env:
   TEST_TAG: user/app:test
