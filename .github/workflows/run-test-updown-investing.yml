@@ -3,6 +3,9 @@ name: Updown Investing Server testing via docker build
 on:
   pull_request:
     - main
+  push:
+    branches:
+      - [ "*" ]
 
 env:
   TEST_TAG: user/app:test
