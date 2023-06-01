@@ -1,14 +1,35 @@
-name: CI
+name: Updown Investing Server testing via docker build
 
 on:
   pull_request:
-    branches: [ "*" ]
+    - main
 
 env:
   TEST_TAG: user/app:test
   LATEST_TAG: user/app:latest
 
 jobs:
+  check-if-files-has-changed:
+    runs-on: ubuntu-latest
+    name: Check If files as changed in Updown Investing Project
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Get changed files in the incubator/updown-investing folder
+        id: changed-files-specific
+        uses: tj-actions/changed-files@v34
+        with:
+          files: |
+            'incubator/updown-investing/**'
+            '.github/worksflow/run-test-updown-investing.yml'
+
+      - name: Stop if there is no changed files
+        if: steps.changed-files-specific.outputs.any_changed == 'false'
+        run: exit 1
+
+
   updown-investing-ci-quality-check:
     env:
       working-directory: ./incubator/updown-investing
