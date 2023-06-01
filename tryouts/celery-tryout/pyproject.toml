@@ -1,0 +1,74 @@
+[tool.poetry]
+name = "cellery-tryout"
+version = "0.1.0"
+description = "Personal auto-trading application"
+authors = ["Uiseop Eom <ytrtef@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.11"
+fastapi = "^0.95.0"
+pydantic = "^1.10.7"
+uvicorn = "^0.21.1"
+httpx = "^0.23.3"
+anyio = "^3.6.2"
+celery = "^5.2.7"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.0.261"
+isort = "^5.12.0"
+pre-commit = "^3.2.1"
+black = "^23.3.0"
+pytest = "^7.2.2"
+fastapi = {extras = ["pytest"], version = "^0.95.0"}
+coverage = "^7.2.2"
+pytest-anyio = "^0.0.0"
+
+[tool.ruff]
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    # "I",  # isort
+    "C",  # flake8-comprehensions
+    "B",  # flake8-bugbear
+]
+ignore = [
+    "E501",  # line too long, handled by black
+    "B008",  # do not perform function calls in argument defaults
+    "C901",  # too complex
+]
+
+[tool.isort]
+# https://github.com/timothycrosley/isort
+# https://github.com/timothycrosley/isort/wiki/isort-Settings
+profile = "black"
+
+[tool.black]
+# https://github.com/psf/black
+line-length = 88
+isort = true
+exclude = '''
+/(
+    \.git
+  | \.mypy_cache
+  | \.tox
+  | venv
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+
+[tool.poetry.build]
+generate-setup-file = false
+
+[settings.virtualenvs]
+in-project = true
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

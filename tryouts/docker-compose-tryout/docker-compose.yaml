@@ -1,0 +1,14 @@
+version: "3"
+services:
+  server:
+    build: ./server
+    ports:
+      - "40403:40403"
+  networks:
+    - front-tier
+
+networks:
+  default:
+    driver: bridge
+  front-tier:
+    driver: bridge
