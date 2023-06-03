@@ -4,8 +4,8 @@ services:
     build: ./server
     ports:
       - "40403:40403"
-  networks:
-    - front-tier
+
+  redis:
 
 networks:
   default:
