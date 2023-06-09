@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "module": "commonjs",
+    "baseUrl": "",
+    "paths": {
+      "@src/*" : ["./src/*"]
+    },
+    "outDir": "lib",
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+  },
+  "compileOnSave": true,
+  "include": [
+    "src/**/*",
+    "test/**/*",
+  ]
+}
