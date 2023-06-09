@@ -1,9 +1,9 @@
 version: "3.3"
 services:
-  queue:
-    image: rabbitmq:3-management
+  redis:
+    image: redis:latest
     ports:
-      - "5672:5672"
+      - "6379:6379"
       - "15672:15672"
 
 networks:
