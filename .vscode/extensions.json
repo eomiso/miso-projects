@@ -21,6 +21,8 @@
 		"timonwong.shellcheck",
 		"remisa.shellman",
 		"wayou.vscode-todo-highlight",
+		"dbaeumer.vscode-eslint",
+		"esbenp.prettier-vscode",
 		"vscodevim.vim",
 		"zxh404.vscode-proto3"
 	],
