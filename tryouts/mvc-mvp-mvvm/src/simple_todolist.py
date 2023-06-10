@@ -15,7 +15,7 @@ DELETE_BTN_TXT = "Delete"
 
 
 class TodoList(tk.Tk):
-    def __init__(self, task_list: [str]) -> None:
+    def __init__(self, task_list: list[str]) -> None:
         super().__init__()
         self.title(TITLE)
         self.geometry("500x300")
