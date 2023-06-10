@@ -69,9 +69,6 @@ exclude = '''
 [tool.poetry.build]
 generate-setup-file = false
 
-[settings.virtualenvs]
-in-project = true
-
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
