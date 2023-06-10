@@ -12,12 +12,6 @@ help_message() {
   echo "  -n, --name <project_name>    Name of the project"
 }
 
-# Version message
-version_message() {
-  echo "Script version $version"
-}
-
-# Create pyproject.toml file
 create_pyproject() {
   local name="$1" # Project name
 
@@ -32,9 +26,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = ">=3.10,<3.11"
-fastapi = "^0.95.0"
 pydantic = "^1.10.7"
-uvicorn = "^0.21.1"
 httpx = "^0.23.3"
 anyio = "^3.6.2"
 
@@ -98,14 +90,6 @@ build-backend = "poetry.core.masonry.api"
 EOF
 }
 
-create_poetry_toml() {
-cat<<EOF>poetry.toml
-[virtualenvs]
-in-project = true
-EOF
-}
-
-# Create .gitignore file
 create_gitignore() {
 cat<<EOF>.gitignore
 # Byte-compiled / optimized / DLL files
@@ -130,12 +114,19 @@ poetry.toml
 
 .DS_Store/
 EOF
-
 }
+
 # Create README.md file
 create_readme() {
 cat<<EOF>README.md
 # ${name}
+EOF
+}
+
+create_poetry_toml() {
+cat<<EOF>poetry.toml
+[virtualenvs]
+in-project = true
 EOF
 }
 
