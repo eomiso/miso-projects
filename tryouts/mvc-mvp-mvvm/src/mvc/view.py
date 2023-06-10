@@ -53,7 +53,8 @@ class TodoList(tk.Tk):
         self.del_task_button.pack(side=tk.LEFT, anchor=tk.NW)
 
     def bind_add_task(self, callback: Callable[[tk.Event], None]) -> None:
-        self.my_entry.bind(self.add_task_button, callback)
+        print("Binding add task button")
+        self.my_entry.bind("<Return>", callback)
 
     def bind_delete_task(self, callback: Callable[[tk.Event], None]) -> None:
         self.del_task_button.bind(LEFT_BUTTON_CLICK, callback)
@@ -67,6 +68,11 @@ class TodoList(tk.Tk):
 
     def on_write(self, event=None) -> None:
         self.add_task_button.config(state=tk.NORMAL)
+
+    @property
+    def selected_task(self) -> Task:
+        title = self.task_list.get(self.task_list.curselection())
+        return Task(title=title)
 
     def on_select_task(self, event=None) -> None:
         self.del_task_button.config(state=tk.NORMAL)
@@ -83,5 +89,6 @@ class TodoList(tk.Tk):
 
     def update_task_list(self) -> None:
         self.task_list.delete(0, tk.END)
-        for item in self.model.get_tasks():
+        for task in self.model.get_tasks():
+            item = task.title
             self.task_list.insert(tk.END, item)

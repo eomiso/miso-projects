@@ -1,5 +1,7 @@
 import sqlite3
 
+from mvc.interfaces import Task
+
 DB_NAME = "tasks.db"
 
 
@@ -12,16 +14,18 @@ class Model:
         self.cursor = self.connection.cursor()
         self.cursor.execute("create table if not exists tasks (title text)")
 
-    def add_task(self, task: str) -> None:
-        self.cursor.execute("insert into tasks values (?)", (task,))
+    def add_task(self, task: Task) -> None:
+        title = task.title
+        self.cursor.execute("insert into tasks values (?)", (title,))
         self.connection.commit()
 
-    def delete_task(self, task: str) -> None:
-        self.cursor.execute("delete from tasks where title=?", (task,))
+    def delete_task(self, task: Task) -> None:
+        title = task.title
+        self.cursor.execute("delete from tasks where title = ?", (title,))
         self.connection.commit()
 
-    def get_tasks(self) -> list[str]:
+    def get_tasks(self) -> list[Task]:
         self.cursor.execute("select * from tasks")
         tasks = self.cursor.fetchall()
 
-        return [task[0] for task in tasks]
+        return [Task(title=task[0]) for task in tasks]

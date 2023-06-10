@@ -10,10 +10,12 @@ class Controller:
         self.view.bind_delete_task(self.delete_task)
 
     def add_task(self, event=None) -> None:
-        task = self.view.get_entry_text()
+        task = self.view.get_entry_task()
         if not task:
+            print("No task to add")
             return
 
+        print(task)
         self.model.add_task(task)
         self.view.clear_entry()
         self.view.update_task_list()

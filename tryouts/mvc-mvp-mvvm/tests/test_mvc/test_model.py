@@ -4,16 +4,19 @@ from unittest.mock import patch
 import pytest
 
 from mvc import model
+from mvc.interfaces import Task
 from mvc.model import Model
 
 
 @pytest.fixture
 def db_with_task() -> tuple[sqlite3.Cursor, str]:
-    task = "Test task"
+    task = Task(title="Test task")
     connection = sqlite3.connect(":memory:")
     cursor = connection.cursor()
     cursor.execute("create table if not exists tasks (title text)")
-    cursor.execute("insert into tasks values (?)", (task,))
+
+    title = task.title
+    cursor.execute("insert into tasks values (?)", (title,))
     connection.commit()
 
     yield connection, cursor, task
@@ -44,7 +47,7 @@ def test_add_task(db_with_task):
     connection, cursor, _ = db_with_task
     model = Model(connection)
 
-    task = "Test task 2"
+    task = Task(title="Test task 2")
 
     # Add the task
     model.add_task(task)
@@ -54,7 +57,7 @@ def test_add_task(db_with_task):
     tasks = cursor.fetchall()
 
     # Check if the added task is in the database
-    assert (task,) in tasks
+    assert (task.title,) in tasks
 
 
 def test_delete_task(db_with_task):

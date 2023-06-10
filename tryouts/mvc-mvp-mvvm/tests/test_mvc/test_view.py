@@ -10,15 +10,15 @@ from mvc.interfaces import Task
 from mvc.model import Model
 from mvc.view import TodoList
 
-TASK_LIST = ["Task 1", "Task 2"]
+TASK_TITLE_LIST = ["Task 1", "Task 2"]
 
 
 @pytest.fixture(scope="session")
 def mock_model():
     connection = sqlite3.connect(":memory:")
     model = Model(connection)
-    for task in TASK_LIST:
-        model.add_task(task)
+    for title in TASK_TITLE_LIST:
+        model.add_task(Task(title=title))
 
     yield model
 
@@ -71,7 +71,7 @@ def test_bind_add_task(mock_todolist):
     mock_todolist.bind_add_task(callback)
 
     mock_todolist.my_entry.bind.assert_called_with(
-        mock_todolist.add_task_button, callback
+        "<Return>", callback  # fixme: Magic String, anti-pattern
     )
 
 
