@@ -13,7 +13,35 @@
     "[python]": {
         "editor.formatOnSave": true,
         "editor.codeActionsOnSave": {
-            "source.organizeImports": true
-        }
+            "source.fixAll.ruff": true,
+            "source.organizeImports.ruff": false
+        },
+        "editor.tabSize": 4,
+        "editor.defaultFormatter": "ms-python.python"
+    },
+    "eslint.validate": [
+        "vue",
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+    ],
+    "eslint.packageManager": "pnpm",
+    "[javascript]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.tabSize": 2
+    },
+    "[typescript]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.tabSize": 2
+    },
+    "[json]": {
+        "editor.quickSuggestions": {
+            "strings": true
+        },
+        "editor.suggest.insertMode": "replace",
+        "editor.tabSize": 2
     }
 }
