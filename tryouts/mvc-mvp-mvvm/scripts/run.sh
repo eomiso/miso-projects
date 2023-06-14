@@ -23,6 +23,10 @@ if [[ $# -gt 0 ]]; then
     PYTHONPATH="./src" python ./src/mvc/main.py
     exit 0
     ;;
+  -p | --mvp)
+    PYTHONPATH="./src" python ./src/mvp/main.py
+    exit 0
+    ;;
   *)
     echo "Unknown option: $1"
     exit 1
