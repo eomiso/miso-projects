@@ -1,0 +1,5 @@
+version: '3'
+services:
+  python-app:
+    build: ./demo
+    mem_limit: 200m
