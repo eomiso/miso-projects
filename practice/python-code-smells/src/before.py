@@ -8,6 +8,7 @@ from string import *
 
 # FIXME: from string import xyz is not a good practice, use explicit imports and dots after that
 
+
 class FuelType(Enum):
     """Types of fuel used in a vehicle."""
 
@@ -39,6 +40,7 @@ class VehicleInfoMissingError(Exception):
 #    repr() is for developers, str() is for customers.
 #    repr() recreates the object, str() is a human-readable representation of the object.
 
+
 @dataclass
 class VehicleModelInfo:
     """Class that contains basic information about a vehicle model."""
@@ -56,7 +58,11 @@ class VehicleModelInfo:
         tax_percentage = taxes[self.fuel_type]
         return tax_percentage * self.catalogue_price
 
-    def get_info_str(self) -> str: # FIXME: use dunder method instead. and the to_string method name is better, since it is used in Vehicle class
+    def get_info_str(
+        self,
+    ) -> (
+        str
+    ):  # FIXME: use dunder method instead. and the to_string method name is better, since it is used in Vehicle class
         """String representation of this instance."""
         return f"brand: {self.brand} - type: {self.model} - tax: {self.tax}"
 
@@ -79,11 +85,13 @@ class VehicleRegistry:
     """Class representing a basic vehicle registration system."""
 
     def __init__(self) -> None:
-        self.vehicle_models: list[VehicleModelInfo] = [] # FIXME: Use dictionary instead for O(1)read
+        self.vehicle_models: list[
+            VehicleModelInfo
+        ] = []  # FIXME: Use dictionary instead for O(1)read
         self.online = True
 
     def add_vehicle_model_info(
-        self, # FIXME: Too many parameters. Use a dataclass instead.
+        self,  # FIXME: Too many parameters. Use a dataclass instead.
         brand: str,
         model: str,
         catalogue_price: int,
@@ -111,7 +119,7 @@ class VehicleRegistry:
         # FIXME: Too deeply nesting - split things out. There are two responsibilities here
         #   1. Find the vehicle info
         #   2. Create the vehicle
-        # FIXME: Combind the two condition 
+        # FIXME: Combind the two condition
         # FIXME: Handle the error first, it reduces the indentation, increasing the readability
         for vehicle_info in self.vehicle_models:
             if vehicle_info.brand == brand:
@@ -124,7 +132,7 @@ class VehicleRegistry:
     def online_status(self) -> RegistryStatus:
         """Report whether the registry system is online."""
         return (
-            RegistryStatus.OFFLINE # FIXME: Nested if-else is not necessary, harde to read. Use the regular if statement instead
+            RegistryStatus.OFFLINE  # FIXME: Nested if-else is not necessary, harde to read. Use the regular if statement instead
             if not self.online
             else RegistryStatus.CONNECTION_ERROR
             if len(self.vehicle_models) == 0

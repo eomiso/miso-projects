@@ -43,7 +43,7 @@ class VehicleInfoMissingError(Exception):
 
 
 @dataclass
-class VehicleModelInfo: 
+class VehicleModelInfo:
     """Class that contains basic information about a vehicle model."""
 
     # FIXME: No default value
@@ -86,7 +86,7 @@ class VehicleRegistry:
         self.online = True
 
     def add_vehicle_model_info(
-        self, # FIXME: Too many paramters
+        self,  # FIXME: Too many paramters
         brand: str,
         model: str,
         catalogue_price: int,
@@ -128,7 +128,6 @@ class VehicleRegistry:
 
 
 if __name__ == "__main__":
-
     # create a registry instance
     registry = VehicleRegistry()
 
