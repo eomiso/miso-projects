@@ -7,4 +7,4 @@ local g = vim.g
 -- It writes the base46 color tables extensions for each plugins to the `base64_cache`
 -- This will happen when the `load_all_highlights` function is called. The `M.complie` function does this.
 --   https://github.com/NvChad/base46/blob/bad87b034430b0241d03868c3802c2f1a4e0b4be/lua/base46/init.lua#L121-L145
-g.base46_cache = vim.fn.stdpath "data" .. "/nvchad/base46/"
+g.base46_cache = vim.fn.stdpath "data" .. "/misovim/base46"

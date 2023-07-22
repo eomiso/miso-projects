@@ -1,7 +1,7 @@
 local options = {
-	view = {
-		side = "left",
-	}
+  view = {
+    side = "left",
+  }
 }
 
 return options
