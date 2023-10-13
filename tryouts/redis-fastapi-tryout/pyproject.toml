@@ -1,0 +1,74 @@
+[tool.poetry]
+name = "redis-fastapi-tryout"
+version = "0.1.0"
+description = ""
+authors = ["Uiseop Eom <ytrtef@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+uvicorn = {extras = ["standard"], version = "^0.23.2"}
+fastapi = "^0.103.2"
+redis = "^5.0.1"
+
+[tool.poetry.group.test.dependencies]
+pytest = [
+    { version = "^6.0", python = "<3.7" },
+    { version = "^7.4.2", python = ">=3.7" }
+]
+pytest-mock = "*"
+boto3 = "*"
+
+
+[tool.poetry.group.dev.dependencies]
+black = { version = "^23.9.1", python = ">=3.8" }
+ruff = { version = "^0.0.290", python = ">=3.7" }
+mypy = [
+    { version = "^0.910", python = "<3.8" },
+    { version = "^1.5.1", python = ">=3.8" }
+]
+bump2version = "*"
+pre-commit = [
+    { version = "^2.0", python = "<3.8" },
+    { version = "^3.0", python = ">=3.8" }
+]
+
+[tool.ruff]
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "C",  # flake8-comprehensions
+    "B",  # flake8-bugbear
+]
+ignore = [
+    "E501",  # line too long, handled by black
+    "C901",  # too complex
+]
+
+[tool.black]
+# https://github.com/psf/black
+line-length = 120
+exclude = '''
+/(
+    \.git
+  | \.mypy_cache
+  | \.tox
+  | venv
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+
+[tool.mypy]
+no_namespace_packages = true
+no_strict_optional = true
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

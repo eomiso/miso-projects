@@ -7,17 +7,17 @@
         "**/.DS_Store": true,
         "**/Thumbs.db": true
     },
-    "python.formatting.provider": "black",
     "isort.importStrategy": "fromEnvironment",
     "black-formatter.importStrategy": "fromEnvironment",
     "[python]": {
         "editor.formatOnSave": true,
         "editor.codeActionsOnSave": {
             "source.fixAll.ruff": true,
-            "source.organizeImports.ruff": false
+            "source.organizeImports.black": false,
+            "source.organizeImports.ruff": true
         },
         "editor.tabSize": 4,
-        "editor.defaultFormatter": "ms-python.python"
+        "editor.defaultFormatter": "ms-python.black-formatter"
     },
     "eslint.validate": [
         "vue",
