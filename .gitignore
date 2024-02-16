@@ -170,3 +170,4 @@ terraform.rc
 
 tf.plan
 tfplan.txt
+*-rsa-key

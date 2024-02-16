@@ -1,0 +1,1 @@
+name=VERSION::$(echo $GITHUB_SHA | cut -c1-7)
